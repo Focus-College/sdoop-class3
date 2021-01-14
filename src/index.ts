@@ -1,4 +1,10 @@
 import prompt from 'prompt';
+import {Room} from './classes/class.room';
+import {Remote} from './classes/class.remote';
+import { RSA_PKCS1_PADDING } from 'constants';
+
+const remote = new Remote();
+Room.items.push(remote);
 
 prompt.start();
 
@@ -10,7 +16,16 @@ function listenForButtonInput(){
         required: true
     }], (err:any, result:any) => {
         if(!err){
-            console.log( result.button );
+            
+            //this is where we interact with the remotes
+        const touchedButton = remote.buttons.find( button => button.emblem === result.button)
+
+            if(touchedButton.isPressed){
+                touchedButton.release();
+            } else {
+                touchedButton.press();
+            }
+
             listenForButtonInput();
         }
     })
