@@ -1,7 +1,7 @@
 export class Room {
 
-    static items:any[] = [];
+    static items:any[]=[];
 
-
+    
 
 }
