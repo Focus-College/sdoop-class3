@@ -30,6 +30,7 @@ export class Television {
     }
 
     recieveSignal( signal:Signal ){
+
         if(signal.code.length === 1){
 
             let _channel:string[] = [];
@@ -76,6 +77,7 @@ export class Television {
 
         }
         console.log( "Channel set to : ", this.channel );
+
     }
     //change coax channel to match tv channel
     tvToCoax(tvChannel:number){
