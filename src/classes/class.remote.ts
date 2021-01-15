@@ -19,8 +19,8 @@ export class Remote {
 
 class Button {
 
-    material:string = "Rubber";
-    isPressed:boolean = false;
+    material = "Rubber";
+    isPressed = false;
 
     protected interval:any;
 

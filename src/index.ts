@@ -2,9 +2,11 @@ import prompt from 'prompt';
 import { Room } from './classes/class.room';
 import { Remote } from './classes/class.remote';
 import { Television } from './classes/class.television';
+import {Coax} from './classes/class.coax'
 
+const coax = new Coax()
 const remote = new Remote();
-const tv = new Television();
+const tv = new Television(coax);
 Room.add(remote);
 Room.add(tv);
 
@@ -19,7 +21,7 @@ function listenForButtonInput(){
     }], (err:any, result:any) => {
         if(!err){
             
-            let interaction:string = "click";
+            let interaction = "click";
             switch(result.button[0]){
                 case ">": 
                     result.button = result.button.substr(1);
