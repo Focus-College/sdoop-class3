@@ -33,7 +33,9 @@ class Button {
 
         this.interval = setInterval(() => {
             this.remote.handleButtonPress( this );
-        }, 1000)
+        }, 2000)
+
+        this.release()
     }
 
     release(){

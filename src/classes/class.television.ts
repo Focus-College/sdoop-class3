@@ -29,14 +29,16 @@ export class Television {
         this.channel = channel;
     }
 
-    recieveSignal( signal:Signal ){
-        if(signal.code.length === 1){
+    recieveSignal( signal:string ){
+        console.log(signal);
+
+        if(signal.length === 1){
 
             let _channel:string[] = [];
 
             this.channelSetInterval = setTimeout(() =>{ 
-                _channel.push((signal.code));
-            }, 1500);
+                _channel.push((signal));
+            }, 3000);
 
             _channel.join('');
 
@@ -45,7 +47,7 @@ export class Television {
             this.setChannel(numChannel);
         } else {
 
-            switch(signal.code){
+            switch(signal){
                 case "Power":{
                     if(this.turnedOn){
                         this.turnOff();
@@ -77,6 +79,7 @@ export class Television {
         }
         console.log( "Channel set to : ", this.channel );
     }
+
     //change coax channel to match tv channel
     tvToCoax(tvChannel:number){
         if(this.turnedOn === true && this.coaxConnected === true){
@@ -86,4 +89,5 @@ export class Television {
     }
 
 }
+
 
