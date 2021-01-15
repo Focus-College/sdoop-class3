@@ -2,11 +2,18 @@ import prompt from 'prompt';
 import { Room } from './classes/class.room';
 import { Remote } from './classes/class.remote';
 import { Television } from './classes/class.television';
+import {Coax} from './classes/class.coax';
 
+const coax = new Coax();
 const remote = new Remote();
 const tv = new Television();
+
 Room.add(remote);
 Room.add(tv);
+Room.add(coax);
+
+tv.turnOn();
+tv.connectCoax();
 
 prompt.start();
 
@@ -42,5 +49,15 @@ function listenForButtonInput(){
         }
     })
 }
+
+function displayTvCoaxalChannel(){
+    let coaxChannel = tv.coax.channels[tv.channel]
+    console.log("Your Watching ", coaxChannel)
+    
+}
+
+setInterval(() => {
+    displayTvCoaxalChannel();
+},5000)
 
 listenForButtonInput();

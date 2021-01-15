@@ -13,7 +13,7 @@ export class Log {
         this.timeout = setTimeout(() => {
             this.stream.end();
             process.exit(0);
-        }, 10000);
+        }, 20000);
     }
 
     write( line:string ){
