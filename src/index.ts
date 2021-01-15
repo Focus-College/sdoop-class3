@@ -37,10 +37,6 @@ function listenForButtonInput(){
             // this is where we start interacting with the remote
             const touchedButton = remote.buttons.find( button => button.emblem === result.button );
 
-    
-            
-
-
             if(touchedButton){
                 switch(true){
                     case touchedButton.isPressed: touchedButton.release(); break;
@@ -54,12 +50,14 @@ function listenForButtonInput(){
     })
 }
 
-function displayTvChannel(){
-    console.log("The Current TV Channel is: ", tv.channel)
+function displayTvCoaxalChannel(){
+    let coaxChannel = tv.coax.channels[tv.channel]
+    console.log("Your Watching ", coaxChannel)
+    
 }
 
 setInterval(() => {
-    displayTvChannel();
+    displayTvCoaxalChannel();
 },5000)
 
 listenForButtonInput();

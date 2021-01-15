@@ -35,11 +35,7 @@ export class Television {
                 let foundChannel = parseInt(this.channelArray.join('').substr(-2));
                 this.setChannel(foundChannel);
         }, 2000);
-        
 
-                    
-            
-            // clearTimeout(this.interval);
         
     }
 
@@ -71,10 +67,12 @@ export class Television {
                 }
                 case "VUP":{
                     this.volume += 1;
+                    console.log("TV Volume Set To: ", this.volume);
                     break;
                 }
                 case "VDN":{
                     this.volume -= 1 ;
+                    console.log("TV Volume Set To: ", this.volume);
                     break;
                 }
                 default:{
