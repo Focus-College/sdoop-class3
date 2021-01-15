@@ -1,0 +1,23 @@
+push 1 btn
+
+tv would rec 1 sign
+
+2sec timeout start
+    Change Channel 1
+    tv's recorded value would be deleted
+
+push 1 btn
+
+tv 2sec timeout would clear
+
+add two values
+
+2sec timeout start
+    Change Channel 11
+    tv's recorded value would be deleted
+
+
+
+
+
+

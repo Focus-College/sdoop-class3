@@ -15,7 +15,6 @@ Room.add(coax);
 tv.turnOn();
 tv.connectCoax();
 
-
 prompt.start();
 
 function listenForButtonInput(){
@@ -27,18 +26,40 @@ function listenForButtonInput(){
     }], (err:any, result:any) => {
         if(!err){
             
+            let interaction:string = "click";
+            switch(result.button[0]){
+                case ">": 
+                    result.button = result.button.substr(1);
+                    interaction = "press";
+                    break;
+            }
+            
             // this is where we start interacting with the remote
             const touchedButton = remote.buttons.find( button => button.emblem === result.button );
-                tv.recieveSignal(touchedButton.emblem);
-            if( touchedButton.isPressed ){
-                touchedButton.release();
-            } else {
-                touchedButton.press();
+
+    
+            
+
+
+            if(touchedButton){
+                switch(true){
+                    case touchedButton.isPressed: touchedButton.release(); break;
+                    case interaction === "press": touchedButton.press(); break;
+                    case interaction === "click": touchedButton.click(); break;
+                }
             }
 
             listenForButtonInput();
         }
     })
 }
+
+function displayTvChannel(){
+    console.log("The Current TV Channel is: ", tv.channel)
+}
+
+setInterval(() => {
+    displayTvChannel();
+},5000)
 
 listenForButtonInput();

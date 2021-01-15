@@ -4,9 +4,10 @@ export class Television {
 
     turnedOn:boolean = false;
     coaxConnected:boolean = false;
-    protected channelSetInterval:any;
+    protected interval:any;
     volume:number = 5;
     channel:number = 2;
+    channelArray:number[] = [];
     coax:Coax;
     
 
@@ -25,30 +26,33 @@ export class Television {
         this.coaxConnected = false;
     }
 
-    setChannel(channel:number){
-        this.channel = channel;
+    buildChannel(number:number){
+        clearTimeout(this.interval);
+        //tv would rec 1 sign
+        this.channelArray.push(number);
+        //2sec timeout start
+        this.interval = setTimeout(() => {
+                let foundChannel = parseInt(this.channelArray.join('').substr(-2));
+                this.setChannel(foundChannel);
+        }, 2000);
+        
+
+                    
+            
+            // clearTimeout(this.interval);
+        
     }
 
-    recieveSignal( signal:string ){
-        console.log(signal);
+    setChannel(channel:number){
 
-        if(signal.length === 1){
+        this.channel = channel;
+        console.log("setChannel: ", channel, "TV CHANNEL", this.channel);
+    }
 
-            let _channel:string[] = [];
+    recieveSignal( signal:Signal ){
 
-            this.channelSetInterval = setTimeout(() =>{ 
-                _channel.push((signal));
-            }, 3000);
-
-            _channel.join('');
-
-            let numChannel = parseInt(_channel[0]);
-
-            this.setChannel(numChannel);
-        } else {
-
-            switch(signal){
-                case "Power":{
+            switch(signal.code){
+                case "POWER":{
                     if(this.turnedOn){
                         this.turnOff();
                         break;
@@ -57,28 +61,35 @@ export class Television {
                         break;
                     }
                 }
-                case "Channel Up":{
-                    this.channel + 1;
+                case "CHUP":{
+                    this.channel += 1;
                     break;
                 }
-                case "Channel Down":{
-                    this.channel - 1;
+                case "CHDN":{
+                    this.channel -= 1;
                     break;
                 }
-                case "Volume Up":{
-                    this.volume + 1;
+                case "VUP":{
+                    this.volume += 1;
                     break;
                 }
-                case "Volume Down":{
-                    this.volume - 1 ;
+                case "VDN":{
+                    this.volume -= 1 ;
                     break;
+                }
+                default:{
+                    let numSignal = parseInt(signal.code);
+                    this.buildChannel(numSignal);
                 }
 
             }
 
+            console.log("The Channel is set to: ",this.channel)
+
         }
-        console.log( "Channel set to : ", this.channel );
-    }
+
+       
+      
 
     //change coax channel to match tv channel
     tvToCoax(tvChannel:number){
@@ -91,3 +102,21 @@ export class Television {
 }
 
 
+
+
+
+// RETRIEVE SIGNAL CODE
+ // if(signal.length > 2){
+
+        //     let _channel:string[] = [];
+
+        //     this.channelSetInterval = setTimeout(() =>{ 
+        //         _channel.push((signal));
+        //     }, 3000);
+
+        //     _channel.join('');
+
+        //     let numChannel = parseInt(_channel[0]);
+
+        //     this.setChannel(numChannel);
+        // } else {
