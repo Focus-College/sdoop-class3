@@ -1,3 +1,5 @@
+import { HDMI, Input } from "./class.input";
+import { NetworkAdapter, Wifi } from "./class.network";
 import { Signal } from "./class.signal";
 
 export class Television {
@@ -10,11 +12,15 @@ export class Television {
         
     }
 
+    protected addInput( input:Input ){
+        this.inputs.push( input );
+    }
+
 }
 
 export class SmartTV extends Television {
 
-    hasWifi: boolean = true;
+    network: NetworkAdapter;
 
 }
 
@@ -29,6 +35,15 @@ export class SamsungModelY extends SmartTV {
 
     brand = "Samsung";
     screenSize = 50;
+    
+    constructor(){
+        super();
+        this.addInput( new HDMI() );
+        this.addInput( new HDMI() )
+        this.addInput( new HDMI() );
+        this.addInput( new HDMI() );
+        this.network = new Wifi();
+    }
 
 }
 
@@ -43,13 +58,7 @@ const danielle = new LgModelX();
 const derrick = new SamsungModelY();
 const doug = new HaeirModelZ();
 
-console.log( danielle, derrick, doug );
-
-const hdmi1 = new YourClassInput();
-
-if( hdmi1 instanceof Input ){
-
-}
+console.log( derrick );
 
 
 /**
